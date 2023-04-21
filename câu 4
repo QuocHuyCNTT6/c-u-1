@@ -1,85 +1,51 @@
 #include <stdio.h> 
 
- 
+// Hàm sắp xếp mảng bằng phương pháp selection sort 
 
-void swap(int *xp, int *yp) 
+void selectionSort(int arr[], int n) { 
 
-{ 
+    for (int i = 0; i < n - 1; i++) { 
 
-    int temp = *xp; 
+        int minIndex = i; 
 
-    *xp = *yp; 
+        for (int j = i + 1; j < n; j++) { 
 
-    *yp = temp; 
+            if (arr[j] < arr[minIndex]) { 
 
-} 
+                // Tìm phần tử nhỏ nhất trong đoạn chưa được sắp xếp 
 
- 
+                minIndex = j;       }  } 
 
-void selectionSort(int arr[], int n) 
+        // Đổi chỗ phần tử nhỏ nhất tìm được với phần tử đầu đoạn chưa được sắp xếp 
 
-{ 
+        int temp = arr[i]; 
 
-    int i, j, min_idx; 
+        arr[i] = arr[minIndex]; 
 
- 
+        arr[minIndex] = temp;    }} 
 
-    for (i = 0; i < n-1; i++) 
-
-    { 
-
-        min_idx = i; 
-
-        for (j = i+1; j < n; j++) 
-
-        { 
-
-            if (arr[j] < arr[min_idx]) 
-
-                min_idx = j; 
-
-        } 
-
-        swap(&arr[min_idx], &arr[i]); 
-
-    } 
-
-} 
-
- 
-
-int main() 
-
-{ 
+int main() { 
 
     int arr[] = {41, 23, 4, 14, 56, 1}; 
 
-    int n = sizeof(arr)/sizeof(arr[0]); 
+    int n = sizeof(arr) / sizeof(arr[0]); 
 
-    int i; 
+    printf("Mang truoc khi sap xep: "); 
 
- 
+    for (int i = 0; i < n; i++) { 
 
-    printf("Mang truoc khi sap xep: \n"); 
-
-    for (i=0; i < n; i++) 
-
-        printf("%d ", arr[i]); 
-
- 
-
-    selectionSort(arr, n); 
-
- 
-
-    printf("\nMang sau khi sap xep: \n"); 
-
-    for (i=0; i < n; i++) 
-
-        printf("%d ", arr[i]); 
+        printf("%d ", arr[i]);  } 
 
     printf("\n"); 
 
-    return 0; 
+    selectionSort(arr, n); 
 
-} 
+    printf("Mang sau khi sap xep: "); 
+
+    for (int i = 0; i < n; i++) { 
+
+        printf("%d ", arr[i]);  } 
+
+    printf("\n"); 
+
+    return 0;} 
