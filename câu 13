@@ -1,33 +1,13 @@
-#include <iostream> 
+// Khai báo cấu trúc dữ liệu cho nút của cây nhị phân 
 
-using namespace std; 
+struct Node { 
 
- 
+    int data; // Giá trị của nút 
 
-int countPositive(float arr[], int n) { 
+    struct Node* left; // Con trỏ sang nút con bên trái 
 
-    // base case 
+    struct Node* right; // Con trỏ sang nút con bên phải 
 
-    if (n == 0) { 
-
-        return 0; 
-
-    } 
+}; 
 
  
-
-    // recursive case 
-
-    int count = countPositive(arr, n-1);  // đệ quy đến phần tử trước 
-
-    if (arr[n-1] > 0) {  // nếu phần tử cuối cùng là số dương 
-
-        count++;  // tăng số lượng lên 1 
-
-    } 
-
- 
-
-    return count; 
-
-} 
