@@ -1,0 +1,33 @@
+#include <iostream> 
+
+using namespace std; 
+
+ 
+
+int countPositive(float arr[], int n) { 
+
+    // base case 
+
+    if (n == 0) { 
+
+        return 0; 
+
+    } 
+
+ 
+
+    // recursive case 
+
+    int count = countPositive(arr, n-1);  // đệ quy đến phần tử trước 
+
+    if (arr[n-1] > 0) {  // nếu phần tử cuối cùng là số dương 
+
+        count++;  // tăng số lượng lên 1 
+
+    } 
+
+ 
+
+    return count; 
+
+} 
