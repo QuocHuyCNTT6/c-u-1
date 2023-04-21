@@ -1,6 +1,4 @@
-#include <iostream> 
-
-using namespace std; 
+#include <stdio.h> 
 
  
 
@@ -8,142 +6,118 @@ using namespace std;
 
  
 
-class Stack { 
+int queue[MAX_SIZE]; 
 
-private: 
+int front = 0; 
 
-  int top; 
-
-  int arr[MAX_SIZE]; 
-
-public: 
-
-  Stack() { 
-
-    top = -1; 
-
-  } 
+int rear = -1; 
 
  
 
-  bool isEmpty() { 
+int rong() { 
 
-    return top == -1; 
+    return front > rear; 
 
-  } 
-
- 
-
-  bool isFull() { 
-
-    return top == MAX_SIZE - 1; 
-
-  } 
+} 
 
  
 
-  void push(int val) { 
+int day() { 
 
-    if (isFull()) { 
+    return rear == MAX_SIZE - 1; 
 
-      cout << "Stack is full. Cannot push value " << val << endl; 
-
-      return; 
-
-    } 
-
-    arr[++top] = val; 
-
-    cout << "Pushed value " << val << " into stack" << endl; 
-
-  } 
+} 
 
  
 
-  int pop() { 
+void themVaoHangDoi(int phanTu) { 
 
-    if (isEmpty()) { 
+    if (!day()) { 
 
-      cout << "Stack is empty. Cannot pop." << endl; 
+        queue[++rear] = phanTu; 
 
-      return -1; 
+    } else { 
 
-    } 
-
-    int val = arr[top--]; 
-
-    cout << "Popped value " << val << " from stack" << endl; 
-
-    return val; 
-
-  } 
+        printf("Hang doi da day. Khong the them phan tu %d.\n", phanTu);    }} 
 
  
 
-  int peek() { 
+int layRaKhoiHangDoi() { 
 
-    if (isEmpty()) { 
+    if (!rong()) { 
 
-      cout << "Stack is empty. Cannot peek." << endl; 
+        return queue[front++]; 
 
-      return -1; 
+    } else { 
 
-    } 
+        printf("Hang doi rong. Khong the lay phan tu.\n"); 
 
-    return arr[top]; 
-
-  } 
+        return -1;}} 
 
  
 
-  void printStack() { 
+int giaTriPhiaTruoc() { 
 
-    if (isEmpty()) { 
+    if (!rong()) { 
 
-      cout << "Stack is empty." << endl; 
+        return queue[front]; 
 
-      return; 
+    } else { 
 
-    } 
+        printf("Hang doi rong. Khong co gia tri phia truoc.\n"); 
 
-    cout << "Stack elements: "; 
+        return -1;   }} 
 
-    for (int i = top; i >= 0; i--) { 
+ 
 
-      cout << arr[i] << " "; 
+int kichThuoc() { 
 
-    } 
-
-    cout << endl; 
-
-  } 
-
-}; 
+    return rear - front + 1;} 
 
  
 
 int main() { 
 
-  Stack s; 
+    // Nhap vao hang doi 6 phan tu 
 
-  int arr[6] = {41, 23, 4, 14, 56, 1}; 
+    int cacPhanTu[] = {41, 23, 4, 14, 56, 1}; 
 
-  for (int i = 0; i < 6; i++) { 
+    int soPhanTu = sizeof(cacPhanTu) / sizeof(cacPhanTu[0]); 
 
-    s.push(arr[i]); 
+    for (int i = 0; i < soPhanTu; i++) { 
 
-  } 
-
- 
-
-  int poppedValue = s.pop(); 
-
-  cout << "Top element of stack: " << s.peek() << endl; 
-
-  s.printStack(); 
+        themVaoHangDoi(cacPhanTu[i]);   } 
 
  
 
-  return 0; 
+    // Them phan tu 55 vao hang doi 
+
+    themVaoHangDoi(55); 
+
+    printf("Hang doi sau khi them phan tu 55: "); 
+
+    for (int i = front; i <= rear; i++) { 
+
+        printf("%d ", queue[i]);    } 
+
+    printf("\n"); 
+
+ 
+
+    // Loai bo phan tu 23 khoi hang doi 
+
+    layRaKhoiHangDoi(); // Bo qua gia tri tra ve, khong can in ra 
+
+    printf("Hang doi sau khi loai bo phan tu 23: "); 
+
+    for (int i = front; i <= rear; i++) { 
+
+        printf("%d ", queue[i]);    } 
+
+    printf("\n"); 
+
+ 
+
+    return 0; 
 
 } 
