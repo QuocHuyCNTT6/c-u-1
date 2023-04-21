@@ -1,32 +1,28 @@
-  #include <iostream> 
-
-using namespace std; 
+#include <stdio.h> 
 
  
 
-// Hàm đệ quy xuất mảng 
+int demSoDuongDeQuy(float mang[], int kichThuoc, int viTri) { 
 
-void xuatMang(int arr[], int n, int index) { 
+    // Điều kiện dừng của đệ quy: nếu vị trí là cuối cùng của mảng, không làm gì cả 
 
-    // Nếu chỉ số phần tử hiện tại lớn hơn hoặc bằng số lượng phần tử trong mảng, dừng đệ quy 
+    if (viTri == kichThuoc) { 
 
-    if (index >= n) { 
-
-        return; 
+        return 0; // Trả về 0 vì không còn phần tử nào để xét 
 
     } 
 
-     
+    // Nếu giá trị tại vị trí hiện tại là dương, thì cộng 1 vào kết quả 
 
-    // Xuất giá trị phần tử hiện tại 
+    if (mang[viTri] > 0) { 
 
-    cout << arr[index] << " "; 
+        return 1 + demSoDuongDeQuy(mang, kichThuoc, viTri + 1); // Gọi đệ quy và cộng 1 vào kết quả 
 
-     
+    } else { 
 
-    // Gọi đệ quy để xuất phần tử tiếp theo 
+        return demSoDuongDeQuy(mang, kichThuoc, viTri + 1); // Nếu không, gọi đệ quy tiếp tục 
 
-    xuatMang(arr, n, index + 1); 
+    } 
 
 } 
 
@@ -34,15 +30,17 @@ void xuatMang(int arr[], int n, int index) {
 
 int main() { 
 
-    int arr[] = {1, 2, 3, 4, 5}; 
+    float mang[] = {1.5, -2.3, 3.7, -4.2, 5.0}; 
 
-    int n = 5; 
+    int kichThuoc = sizeof(mang) / sizeof(mang[0]); 
 
  
 
-    cout << "Mang: "; 
+    int soLuongDuong = demSoDuongDeQuy(mang, kichThuoc, 0); // Gọi hàm đệ quy đếm số lượng giá trị dương trong mảng 
 
-    xuatMang(arr, n, 0); // Gọi hàm đệ quy để xuất mảng 
+ 
+
+    printf("So luong gia tri duong trong mang: %d\n", soLuongDuong); 
 
  
 
