@@ -1,135 +1,53 @@
-#include <iostream> 
-
-using namespace std; 
+#include <stdio.h> 
 
  
 
-#define MAX 100 // kích thước của hàng đợi 
+int tinhTongChanDeQuy(int mang[], int kichThuoc) { 
 
- 
+    // Điều kiện dừng của đệ quy: nếu kích thước mảng là 0, trả về 0 
 
-class Queue { 
+    if (kichThuoc == 0) { 
 
-private: 
-
-    int front, rear; // chỉ số phía trước và phía sau của hàng đợi 
-
-    int arr[MAX]; // mảng lưu trữ các phần tử hàng đợi 
-
-public: 
-
-    Queue() { // constructor, khởi tạo hàng đợi rỗng 
-
-        front = -1; 
-
-        rear = -1; 
+        return 0; 
 
     } 
 
- 
+    // Nếu phần tử cuối cùng trong mảng là số chẵn, thì trả về tổng của phần tử đó 
 
-    bool isFull() { // kiểm tra hàng đợi đã đầy chưa 
+    // và tổng của các phần tử còn lại trong mảng (gọi đệ quy) 
 
-        return rear == MAX - 1; 
+    if (mang[kichThuoc - 1] % 2 == 0) { 
 
-    } 
-
- 
-
-    bool isEmpty() { // kiểm tra hàng đợi có rỗng không 
-
-        return front == -1 || front > rear; 
+        return mang[kichThuoc - 1] + tinhTongChanDeQuy(mang, kichThuoc - 1); 
 
     } 
 
- 
+    // Nếu phần tử cuối cùng không phải số chẵn, thì chỉ gọi đệ quy để tính tổng 
 
-    void enqueue(int x) { // thêm phần tử vào cuối hàng đợi 
+    // của các phần tử còn lại trong mảng 
 
-        if (isFull()) { 
+    else { 
 
-            cout << "Hang doi da day!"; 
-
-            return; 
-
-        } 
-
-        if (front == -1) { 
-
-            front = 0; 
-
-        } 
-
-        arr[++rear] = x; 
-
-        cout << "Da them phan tu " << x << " vao hang doi." << endl; 
+        return tinhTongChanDeQuy(mang, kichThuoc - 1); 
 
     } 
 
- 
-
-    void dequeue() { // loại bỏ phần tử ở đầu hàng đợi 
-
-        if (isEmpty()) { 
-
-            cout << "Hang doi rong!"; 
-
-            return; 
-
-        } 
-
-        int x = arr[front++]; 
-
-        cout << "Da xoa phan tu " << x << " khoi hang doi." << endl; 
-
-    } 
-
- 
-
-    void display() { // hiển thị các phần tử trong hàng đợi 
-
-        if (isEmpty()) { 
-
-            cout << "Hang doi rong!"; 
-
-            return; 
-
-        } 
-
-        cout << "Cac phan tu trong hang doi la: "; 
-
-        for (int i = front; i <= rear; i++) { 
-
-            cout << arr[i] << " "; 
-
-        } 
-
-        cout << endl; 
-
-    } 
-
-}; 
+} 
 
  
 
 int main() { 
 
-    Queue q; 
+    int mang[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; 
 
-    int arr[6] = {41, 23, 4, 14, 56, 1}; 
+    int kichThuoc = sizeof(mang) / sizeof(mang[0]); 
 
-    for (int i = 0; i < 6; i++) { 
+ 
 
-        q.enqueue(arr[i]); 
+    int tongChan = tinhTongChanDeQuy(mang, kichThuoc); 
 
-    } 
+    printf("Tong cac so chan trong mang la: %d\n", tongChan); 
 
-    q.enqueue(55); // thêm phần tử 55 vào hàng đợi 
+ 
 
-    q.dequeue(); // loại bỏ phần tử đầu tiên (23) trong hàng đợi 
-
-    q.display(); // hiển thị các phần tử còn lại trong hàng đợi 
-
-    return 0; 
-
-} 
+    return 0;} 
