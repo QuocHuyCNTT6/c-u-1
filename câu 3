@@ -4,29 +4,51 @@ using namespace std;
 
  
 
-int main() { 
+void bubbleSort(int arr[], int n) { 
 
-    int arr[] = {2, 3, 4, 10, 40}; 
+    for (int i = 0; i < n - 1; i++) { 
 
-    int n = sizeof(arr) / sizeof(arr[0]); 
+        for (int j = 0; j < n - i - 1; j++) { 
 
-    int x = 10; 
+            if (arr[j] > arr[j + 1]) { 
 
- 
+                int temp = arr[j]; 
 
-    for (int i = 0; i < n; i++) { 
+                arr[j] = arr[j + 1]; 
 
-        if (arr[i] == x) { 
+                arr[j + 1] = temp; 
 
-            cout << "Tim thay tai vi tri " << i << endl; 
-
-            return 0; 
+            } 
 
         } 
 
     } 
 
-    cout << "Khong tim thay gia tri " << x << endl; 
+} 
+
+ 
+
+int main() { 
+
+    int arr[] = {41, 23, 4, 14, 56, 1}; 
+
+    int n = sizeof(arr) / sizeof(arr[0]); 
+
+ 
+
+    bubbleSort(arr, n); 
+
+ 
+
+    cout << "Mang sau khi sap xep: "; 
+
+    for (int i = 0; i < n; i++) 
+
+        cout << arr[i] << " "; 
+
+    cout << endl; 
+
+ 
 
     return 0; 
 
