@@ -1,26 +1,40 @@
-#include <iostream> 
-
-using namespace std; 
+#include <stdio.h> 
 
  
 
-int sumEvenRecursive(int arr[], int n) { 
+int demSoDuongDeQuy(float mang[], int kichThuoc) { 
 
-    // Base case 
+    // Điều kiện dừng của đệ quy: nếu kích thước mảng là 0, trả về 0 
 
-    if (n == 1) { 
+    if (kichThuoc == 0) { 
 
-        return (arr[0] % 2 == 0) ? arr[0] : 0; 
+        return 0; 
 
     } 
 
-     
+    // Nếu phần tử cuối cùng trong mảng là số dương, thì trả về 1 
 
-    // Recursive case 
+    // (để đếm phần tử này) cộng với số lượng các phần tử dương trong 
 
-    int sum = sumEvenRecursive(arr + 1, n - 1); 
+    // mảng con (mảng không bao gồm phần tử cuối cùng) (gọi đệ quy) 
 
-    return (arr[0] % 2 == 0) ? sum + arr[0] : sum; 
+    if (mang[kichThuoc - 1] > 0) { 
+
+        return 1 + demSoDuongDeQuy(mang, kichThuoc - 1); 
+
+    } 
+
+    // Nếu phần tử cuối cùng không phải số dương, thì chỉ gọi đệ quy 
+
+    // để đếm số lượng phần tử dương trong mảng con (mảng không bao 
+
+    // gồm phần tử cuối cùng) 
+
+    else { 
+
+        return demSoDuongDeQuy(mang, kichThuoc - 1); 
+
+    } 
 
 } 
 
@@ -28,13 +42,17 @@ int sumEvenRecursive(int arr[], int n) {
 
 int main() { 
 
-    int arr[] = {1, 2, 3, 4, 5, 6}; 
+    float mang[] = {1.2, -2.3, 4.5, -6.7, 8.9, 10.1}; 
 
-    int n = sizeof(arr) / sizeof(arr[0]); 
+    int kichThuoc = sizeof(mang) / sizeof(mang[0]); 
 
-    int sum = sumEvenRecursive(arr, n); 
+ 
 
-    cout << "Tong cac so chan trong mang la: " << sum << endl; 
+    int soLuongDuong = demSoDuongDeQuy(mang, kichThuoc); 
+
+    printf("So luong gia tri duong trong mang la: %d\n", soLuongDuong); 
+
+ 
 
     return 0; 
 
