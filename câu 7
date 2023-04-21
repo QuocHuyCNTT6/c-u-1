@@ -1,38 +1,42 @@
-#include <iostream> 
-
-using namespace std; 
+#include <stdio.h> 
 
  
 
-void heapify(int arr[], int n, int i) { 
-
-    int largest = i;  
-
-    int l = 2 * i + 1;  
-
-    int r = 2 * i + 2;  
+#define MAX_SIZE 100 
 
  
 
-    if (l < n && arr[l] > arr[largest]) 
+int stack[MAX_SIZE]; 
 
-        largest = l; 
-
- 
-
-    if (r < n && arr[r] > arr[largest]) 
-
-        largest = r; 
+int top = -1; 
 
  
 
-    if (largest != i) { 
+int is_empty() { 
 
-        swap(arr[i], arr[largest]); 
+    return top == -1; 
+
+} 
 
  
 
-        heapify(arr, n, largest); 
+int is_full() { 
+
+    return top == MAX_SIZE - 1; 
+
+} 
+
+ 
+
+void push(int item) { 
+
+    if (!is_full()) { 
+
+        stack[++top] = item; 
+
+    } else { 
+
+        printf("Stack is full. Cannot push item %d.\n", item); 
 
     } 
 
@@ -40,23 +44,45 @@ void heapify(int arr[], int n, int i) {
 
  
 
-void heapSort(int arr[], int n) { 
+int pop() { 
 
-    for (int i = n / 2 - 1; i >= 0; i--) 
+    if (!is_empty()) { 
 
-        heapify(arr, n, i); 
+        return stack[top--]; 
 
- 
+    } else { 
 
-    for (int i = n - 1; i >= 0; i--) { 
+        printf("Stack is empty. Cannot pop item.\n"); 
 
-        swap(arr[0], arr[i]); 
-
- 
-
-        heapify(arr, i, 0); 
+        return -1; 
 
     } 
+
+} 
+
+ 
+
+int top_value() { 
+
+    if (!is_empty()) { 
+
+        return stack[top]; 
+
+    } else { 
+
+        printf("Stack is empty. No top value.\n"); 
+
+        return -1; 
+
+    } 
+
+} 
+
+ 
+
+int size() { 
+
+    return top + 1; 
 
 } 
 
@@ -64,26 +90,44 @@ void heapSort(int arr[], int n) {
 
 int main() { 
 
-    int arr[] = {41, 23, 4, 14, 56, 1}; 
+    // Nhập vào stack 6 phần tử 
 
-    int n = sizeof(arr) / sizeof(arr[0]); 
+    int elements[] = {41, 23, 4, 14, 56, 1}; 
+
+    int num_elements = sizeof(elements) / sizeof(elements[0]); 
+
+    for (int i = 0; i < num_elements; i++) { 
+
+        push(elements[i]); 
+
+    } 
 
  
 
-    heapSort(arr, n); 
+    // Xuất giá trị top ra khỏi stack 
+
+    int top_value = pop(); 
+
+    printf("Giá trị top đã được xuất ra khỏi stack: %d\n", top_value); 
 
  
 
-    cout << "Mang sau khi sap xep: "; 
+    // In các phần tử trong stack còn lại 
 
-    for (int i = 0; i < n; i++) 
+    printf("Các phần tử còn lại trong stack: "); 
 
-        cout << arr[i] << " "; 
+    while (!is_empty()) { 
 
-    cout << endl; 
+        printf("%d ", pop()); 
+
+    } 
+
+    printf("\n"); 
 
  
 
     return 0; 
 
 } 
+
+ 
